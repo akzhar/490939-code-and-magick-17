@@ -4,17 +4,17 @@ var CLOUD_X = 100;
 var CLOUD_Y = 10;
 var CLOUD_WIDTH = 420;
 var CLOUD_HEIGHT = 270;
-
-var COLUMN_WIDTH = 40;
-var COLUMN_GAP = 50;
-var MARGIN_X = 30;
-
-var GIST_X = CLOUD_X + MARGIN_X;
-var GIST_Y = CLOUD_Y + 90;
-var GIST_WIDTH = CLOUD_WIDTH - MARGIN_X * 2;
+var BAR_WIDTH = 40;
+var BAR_GAP = 50;
+var PADDING_X = 30;
+var STEP_Y = 20;
+var CONTENT_X = CLOUD_X + PADDING_X;
 var GIST_HEIGHT = 150;
+var GIST_LOW_LEVEL = STEP_Y * 5 + GIST_HEIGHT;
 
-var GIST_LOW_LEVEL = GIST_Y + GIST_HEIGHT;
+function getRandom(min, max) {
+  return Math.random() * (max - min) + min;
+}
 
 function drawCloud(ctx) {
   ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
@@ -23,45 +23,31 @@ function drawCloud(ctx) {
   ctx.fillRect(CLOUD_X, CLOUD_Y, CLOUD_WIDTH, CLOUD_HEIGHT);
   ctx.fillStyle = '#000000';
   ctx.font = '16px PT Mono';
-  ctx.fillText('Ура вы победили!', CLOUD_X + MARGIN_X, CLOUD_Y + 40);
-  ctx.fillText('Список результатов:', CLOUD_X + MARGIN_X, CLOUD_Y + 60);
-};
+  ctx.fillText('Ура вы победили!', CONTENT_X, STEP_Y * 2);
+  ctx.fillText('Список результатов:', CONTENT_X, STEP_Y * 3);
+}
 
-function drawColumn(ctx, name, time, i) {
-  var columnColor = 'rgba(0, 0, 255, ' + Math.random() + ')'; //получаем рандомный сисний
-  ctx.fillStyle = columnColor;
-  // console.log(columnColor);
+function drawBar(ctx, name, time, i, barHeigthMax) {
+  var barColor = 'rgba(0, 0, 255, ' + getRandom(0.1, 1) + ')';
+  ctx.fillStyle = barColor;
   if (name === 'Вы') {
     ctx.fillStyle = 'rgba(255, 0, 0, 1)';
   }
-
-
-  var columnX = CLOUD_X + MARGIN_X + i * (COLUMN_WIDTH + COLUMN_GAP);
-  var columnHeigth = Math.round(time) / 100;
-  var columnY = GIST_LOW_LEVEL - 20 - columnHeigth;
-  ctx.fillRect(columnX, columnY, COLUMN_WIDTH, columnHeigth);
-
+  var barX = CONTENT_X + (BAR_WIDTH + BAR_GAP) * i;
+  var barHeigth = Math.round(time) / barHeigthMax * GIST_HEIGHT;
+  var barY = GIST_LOW_LEVEL - barHeigth;
+  ctx.fillRect(barX, barY, BAR_WIDTH, barHeigth); // отрисовка стобца графика
   ctx.fillStyle = '#000000';
-  ctx.fillText(Math.round(time), columnX, columnY - 10); //вывод очков игрока
-  ctx.fillText(name, columnX, GIST_LOW_LEVEL); //вывод имени игрока
-};
-
-
-
-
-
+  ctx.fillText(Math.round(time), barX, barY - STEP_Y / 2); // вывод очков игрока
+  ctx.fillText(name, barX, GIST_LOW_LEVEL + STEP_Y); // вывод имени игрока
+}
 
 window.renderStatistics = function (ctx, names, times) {
   drawCloud(ctx);
 
-  console.log(names);
-  console.log(times);
+  var barHeigthMax = Math.round(Math.max.apply(null, times));
 
-  ctx.fillStyle = 'yellow';
-  ctx.fillRect(GIST_X, GIST_Y, GIST_WIDTH, GIST_HEIGHT); //рисуем область гистограммы
-
-  // var maxTime = Math.round(Math.max.apply(null, times));
-  for(var i = 0; i < names.length; i++) {
-    drawColumn(ctx, names[i], times[i], i);
+  for (var i = 0; i < names.length; i++) {
+    drawBar(ctx, names[i], times[i], i, barHeigthMax);
   }
 };
