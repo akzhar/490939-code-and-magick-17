@@ -41,40 +41,39 @@ var eyesColors = [
   'green'
 ];
 
-function getRandom(min, max) {
-  return Math.random() * (max - min) + min;
+function getRandomElemInArr(arr) {
+  return arr[Math.round(Math.random() * (arr.length - 1))];
 }
 
-function createWizzards(n) {
+function createWizards(n) {
   var wizards = [];
   for (var i = 0; i < n; i++) {
-    var wizard = {
-      name: firstNames[Math.round(getRandom(0, firstNames.length - 1))] + ' ' + lastNames[Math.round(getRandom(0, lastNames.length - 1))],
-      coatColor: coatColors[Math.round(getRandom(0, coatColors.length - 1))],
-      eyesColor: eyesColors[Math.round(getRandom(0, eyesColors.length - 1))]
+    wizards[i] = {
+      name: getRandomElemInArr(firstNames) + ' ' + getRandomElemInArr(lastNames),
+      coatColor: getRandomElemInArr(coatColors),
+      eyesColor: getRandomElemInArr(eyesColors)
     };
-    wizards.push(wizard);
   }
   return wizards;
 }
 
-function fillInWizzardsCards(wizards) {
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < wizards.length; i++) {
-    var wizardCard = templateWizardCard.cloneNode(true);
-    var wizardName = wizardCard.querySelector('.setup-similar-label');
-    var wizardCoat = wizardCard.querySelector('.wizard-coat');
-    var wizardEyes = wizardCard.querySelector('.wizard-eyes');
-    wizardName.textContent = wizards[i].name;
-    wizardCoat.style = 'fill:' + wizards[i].coatColor + ';';
-    wizardEyes.style = 'fill:' + wizards[i].eyesColor + ';';
-    fragment.appendChild(wizardCard);
-  }
-  return fragment;
+function renderWizard(wizard) {
+  var wizardCard = templateWizardCard.cloneNode(true);
+  var wizardName = wizardCard.querySelector('.setup-similar-label');
+  var wizardCoat = wizardCard.querySelector('.wizard-coat');
+  var wizardEyes = wizardCard.querySelector('.wizard-eyes');
+  wizardName.textContent = wizard.name;
+  wizardCoat.style.fill = wizard.coatColor;
+  wizardEyes.style.fill = wizard.eyesColor;
+  return wizardCard;
 }
 
 setupForm.classList.remove('hidden');
-var similarWizards = createWizzards(NUMBER_OF_WIZARDS);
-var similarWizardsCards = fillInWizzardsCards(similarWizards);
-similarWizardsList.appendChild(similarWizardsCards);
+var similarWizards = createWizards(NUMBER_OF_WIZARDS);
+var fragment = document.createDocumentFragment();
+for (var i = 0; i < similarWizards.length; i++) {
+  var wizardCard = renderWizard(similarWizards[i]);
+  fragment.appendChild(wizardCard);
+}
+similarWizardsList.appendChild(fragment);
 similarWizardsBlock.classList.remove('hidden');
