@@ -68,7 +68,6 @@ function renderWizard(wizard) {
   return wizardCard;
 }
 
-setupForm.classList.remove('hidden');
 var similarWizards = createWizards(NUMBER_OF_WIZARDS);
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < similarWizards.length; i++) {
@@ -77,3 +76,54 @@ for (var i = 0; i < similarWizards.length; i++) {
 }
 similarWizardsList.appendChild(fragment);
 similarWizardsBlock.classList.remove('hidden');
+
+
+// --------------------------
+// --------------------------
+
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+var formOpenBtn = document.querySelector('.setup-open');
+var formCloseBtn = setupForm.querySelector('.setup-close');
+var formOpenIcon = formOpenBtn.querySelector('.setup-open-icon');
+var formUserName = setupForm.querySelector('.setup-user-name');
+
+function formOpenBtnClickHandler() {
+  openForm();
+}
+
+function formCloseBtnClickHandler() {
+  closeForm();
+}
+
+function formEnterPressHandler(evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.target === formCloseBtn) {
+      closeForm();
+    } else {
+      openForm();
+    }
+  }
+}
+
+function formEscPressHandler(evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    if (evt.target !== formUserName) {
+      closeForm();
+    }
+  }
+}
+
+function openForm() {
+  setupForm.classList.remove('hidden');
+  document.addEventListener('keydown', formEscPressHandler);
+  formCloseBtn.addEventListener('keydown', formEnterPressHandler);
+}
+
+function closeForm() {
+  setupForm.classList.add('hidden');
+}
+
+formOpenBtn.addEventListener('click', formOpenBtnClickHandler);
+formCloseBtn.addEventListener('click', formCloseBtnClickHandler);
+formOpenIcon.addEventListener('keydown', formEnterPressHandler);
