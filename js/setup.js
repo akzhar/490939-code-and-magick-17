@@ -74,14 +74,14 @@ function createWizards(n) {
 }
 
 function renderWizard(wizard) {
-  var wizardCard = templateWizardCard.cloneNode(true);
-  var wizardName = wizardCard.querySelector('.setup-similar-label');
-  var wizardCoat = wizardCard.querySelector('.wizard-coat');
-  var wizardEyes = wizardCard.querySelector('.wizard-eyes');
-  wizardName.textContent = wizard.name;
-  wizardCoat.style.fill = wizard.coatColor;
-  wizardEyes.style.fill = wizard.eyesColor;
-  return wizardCard;
+  var card = templateWizardCard.cloneNode(true);
+  var name = card.querySelector('.setup-similar-label');
+  var coat = card.querySelector('.wizard-coat');
+  var eyes = card.querySelector('.wizard-eyes');
+  name.textContent = wizard.name;
+  coat.style.fill = wizard.coatColor;
+  eyes.style.fill = wizard.eyesColor;
+  return card;
 }
 
 function formOpenBtnClickHandler() {
