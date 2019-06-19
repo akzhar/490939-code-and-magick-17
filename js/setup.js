@@ -123,34 +123,22 @@ function documentEscPressHandler(evt) {
   }
 }
 
-function setCoatColor() {
+function wizardCoatClickHandler() {
   var newCoatColor = getRandomElemInArr(coatColors);
   wizardCoat.style.fill = newCoatColor;
   inputCoatColor.value = newCoatColor;
 }
 
-function setEyesColor() {
+function wizardEyesClickHandler() {
   var newEyesColor = getRandomElemInArr(eyesColors);
   wizardEyes.style.fill = newEyesColor;
   inputEyesColor.value = newEyesColor;
 }
 
-function setFireBallColor() {
+function wizardFireBallClickHandler() {
   var newFireBallColor = getRandomElemInArr(fireBallColors);
   wizardFireBall.style.backgroundColor = newFireBallColor;
   inputFireBallColor.value = newFireBallColor;
-}
-
-function wizardCoatClickHandler() {
-  setCoatColor();
-}
-
-function wizardEyesClickHandler() {
-  setEyesColor();
-}
-
-function wizardFireBallClickHandler() {
-  setFireBallColor();
 }
 
 var similarWizards = createWizards(NUMBER_OF_WIZARDS);
