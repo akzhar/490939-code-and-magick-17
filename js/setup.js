@@ -92,21 +92,31 @@ function openForm() {
   setupForm.classList.remove('hidden');
   document.addEventListener('keydown', documentEscPressHandler);
   formCloseBtn.addEventListener('keydown', formCloseBtnEnterPressHandler);
+  formCloseBtn.addEventListener('click', onFormCloseBtnClick);
+  wizardCoat.addEventListener('click', onWizardCoatClick);
+  wizardEyes.addEventListener('click', onWizardEyesClick);
+  wizardFireBall.addEventListener('click', onWizardFireBallClick);
 }
 
 function closeForm() {
   setupForm.classList.add('hidden');
+  document.removeEventListener('keydown', documentEscPressHandler);
+  formCloseBtn.removeEventListener('keydown', formCloseBtnEnterPressHandler);
+  formCloseBtn.removeEventListener('click', onFormCloseBtnClick);
+  wizardCoat.removeEventListener('click', onWizardCoatClick);
+  wizardEyes.removeEventListener('click', onWizardEyesClick);
+  wizardFireBall.removeEventListener('click', onWizardFireBallClick);
 }
 
-function formOpenBtnClickHandler() {
+function onFormOpenBtnClick() {
   openForm();
 }
 
-function formCloseBtnClickHandler() {
+function onFormCloseBtnClick() {
   closeForm();
 }
 
-function formOpenIconEnterPressHandler(evt) {
+function onFormOpenIconEnterPress(evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     openForm();
   }
@@ -123,19 +133,19 @@ function documentEscPressHandler(evt) {
   }
 }
 
-function wizardCoatClickHandler() {
+function onWizardCoatClick() {
   var newCoatColor = getRandomElemInArr(coatColors);
   wizardCoat.style.fill = newCoatColor;
   inputCoatColor.value = newCoatColor;
 }
 
-function wizardEyesClickHandler() {
+function onWizardEyesClick() {
   var newEyesColor = getRandomElemInArr(eyesColors);
   wizardEyes.style.fill = newEyesColor;
   inputEyesColor.value = newEyesColor;
 }
 
-function wizardFireBallClickHandler() {
+function onWizardFireBallClick() {
   var newFireBallColor = getRandomElemInArr(fireBallColors);
   wizardFireBall.style.backgroundColor = newFireBallColor;
   inputFireBallColor.value = newFireBallColor;
@@ -150,9 +160,5 @@ for (var i = 0; i < similarWizards.length; i++) {
 similarWizardsList.appendChild(fragment);
 similarWizardsBlock.classList.remove('hidden');
 
-formOpenBtn.addEventListener('click', formOpenBtnClickHandler);
-formCloseBtn.addEventListener('click', formCloseBtnClickHandler);
-formOpenIcon.addEventListener('keydown', formOpenIconEnterPressHandler);
-wizardCoat.addEventListener('click', wizardCoatClickHandler);
-wizardEyes.addEventListener('click', wizardEyesClickHandler);
-wizardFireBall.addEventListener('click', wizardFireBallClickHandler);
+formOpenBtn.addEventListener('click', onFormOpenBtnClick);
+formOpenIcon.addEventListener('keydown', onFormOpenIconEnterPress);
