@@ -90,8 +90,8 @@ function renderWizard(wizard) {
 
 function openForm() {
   setupForm.classList.remove('hidden');
-  document.addEventListener('keydown', documentEscPressHandler);
-  formCloseBtn.addEventListener('keydown', formCloseBtnEnterPressHandler);
+  document.addEventListener('keydown', onDocumentEscPress);
+  formCloseBtn.addEventListener('keydown', onFormCloseBtnEnterPress);
   formCloseBtn.addEventListener('click', onFormCloseBtnClick);
   wizardCoat.addEventListener('click', onWizardCoatClick);
   wizardEyes.addEventListener('click', onWizardEyesClick);
@@ -100,8 +100,8 @@ function openForm() {
 
 function closeForm() {
   setupForm.classList.add('hidden');
-  document.removeEventListener('keydown', documentEscPressHandler);
-  formCloseBtn.removeEventListener('keydown', formCloseBtnEnterPressHandler);
+  document.removeEventListener('keydown', onDocumentEscPress);
+  formCloseBtn.removeEventListener('keydown', onFormCloseBtnEnterPress);
   formCloseBtn.removeEventListener('click', onFormCloseBtnClick);
   wizardCoat.removeEventListener('click', onWizardCoatClick);
   wizardEyes.removeEventListener('click', onWizardEyesClick);
@@ -121,13 +121,13 @@ function onFormOpenIconEnterPress(evt) {
     openForm();
   }
 }
-function formCloseBtnEnterPressHandler(evt) {
+function onFormCloseBtnEnterPress(evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     closeForm();
   }
 }
 
-function documentEscPressHandler(evt) {
+function onDocumentEscPress(evt) {
   if (evt.keyCode === ESC_KEYCODE && evt.target !== formUserName) {
     closeForm();
   }
