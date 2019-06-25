@@ -34,16 +34,16 @@
     return card;
   }
 
-  function renderWizardCards() {
-    var similarWizards = createWizards(NUMBER_OF_WIZARDS);
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < similarWizards.length; i++) {
-      var wizardCard = renderWizard(similarWizards[i]);
-      fragment.appendChild(wizardCard);
+  window.wizard = {
+    renderWizardCards: function () {
+      var similarWizards = createWizards(NUMBER_OF_WIZARDS);
+      var fragment = document.createDocumentFragment();
+      for (var i = 0; i < similarWizards.length; i++) {
+        var wizardCard = renderWizard(similarWizards[i]);
+        fragment.appendChild(wizardCard);
+      }
+      similarWizardsList.appendChild(fragment);
+      similarWizardsBlock.classList.remove('hidden');
     }
-    similarWizardsList.appendChild(fragment);
-  }
-
-  renderWizardCards();
-  similarWizardsBlock.classList.remove('hidden');
+  };
 })();

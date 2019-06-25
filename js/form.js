@@ -7,9 +7,7 @@
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
   var setupForm = document.querySelector('.setup');
-  var formOpenBtn = document.querySelector('.setup-open');
   var formCloseBtn = setupForm.querySelector('.setup-close');
-  var formOpenIcon = formOpenBtn.querySelector('.setup-open-icon');
   var formUserName = setupForm.querySelector('.setup-user-name');
   var wizardCoat = setupForm.querySelector('.setup-wizard .wizard-coat');
   var wizardEyes = setupForm.querySelector('.setup-wizard .wizard-eyes');
@@ -35,18 +33,8 @@
     wizardFireBall.removeEventListener('click', dependencies.setup.onWizardFireBallClick);
   }
 
-  function onFormOpenBtnClick() {
-    openForm();
-  }
-
   function onFormCloseBtnClick() {
     closeForm();
-  }
-
-  function onFormOpenIconEnterPress(evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
-      openForm();
-    }
   }
 
   function onFormCloseBtnEnterPress(evt) {
@@ -61,6 +49,14 @@
     }
   }
 
-  formOpenBtn.addEventListener('click', onFormOpenBtnClick);
-  formOpenIcon.addEventListener('keydown', onFormOpenIconEnterPress);
+  window.form = {
+    onFormOpenBtnClick: function () {
+      openForm();
+    },
+    onFormOpenIconEnterPress: function (evt) {
+      if (evt.keyCode === ENTER_KEYCODE) {
+        openForm();
+      }
+    }
+  };
 })();
