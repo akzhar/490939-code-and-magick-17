@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var dependencies = {
+    utils: window.utils
+  };
   var CLOUD_X = 100;
   var CLOUD_Y = 10;
   var CLOUD_WIDTH = 420;
@@ -37,7 +40,7 @@
     var barX = CLOUD_X + 30 + (BAR_WIDTH + BAR_GAP) * player.index;
     var barHeigth = player.score / scoreMax * GIST_MAX_HEIGHT;
     var barY = GIST_LOW_LEVEL - barHeigth;
-    var barColor = 'rgba(0, 0, 255, ' + getRandom(0.1, 1) + ')';
+    var barColor = 'rgba(0, 0, 255, ' + dependencies.utils.getRandom(0.1, 1) + ')';
     ctx.fillStyle = barColor;
     if (player.name === YOUR_NAME) {
       ctx.fillStyle = COLORS.RED;
@@ -46,10 +49,6 @@
     ctx.fillStyle = COLORS.BLACK;
     ctx.fillText(player.score, barX, barY - 10);
     ctx.fillText(player.name, barX, GIST_LOW_LEVEL + 20);
-  }
-
-  function getRandom(min, max) {
-    return Math.random() * (max - min) + min;
   }
 
   window.renderStatistics = function (ctx, names, times) {
