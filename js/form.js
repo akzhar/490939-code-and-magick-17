@@ -2,16 +2,36 @@
 
 (function () {
   var dependencies = {
-    setup: window.setup
+    setup: window.setup,
+    dialog: window.dialog,
+    backend: window.backend
   };
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
+  var Code = {
+    ESC: 27,
+    ENTER: 13
+  };
   var setupForm = document.querySelector('.setup');
   var formCloseBtn = setupForm.querySelector('.setup-close');
   var formUserName = setupForm.querySelector('.setup-user-name');
   var wizardCoat = setupForm.querySelector('.setup-wizard .wizard-coat');
   var wizardEyes = setupForm.querySelector('.setup-wizard .wizard-eyes');
   var wizardFireBall = setupForm.querySelector('.setup-fireball-wrap');
+  var uploadIcon = setupForm.querySelector('.upload');
+
+  window.form = {
+    onFormOpenBtnClick: onFormOpenBtnClick,
+    onFormOpenIconEnterPress: onFormOpenIconEnterPress
+  };
+
+  function onFormOpenBtnClick() {
+    openForm();
+  }
+
+  function onFormOpenIconEnterPress(evt) {
+    if (evt.keyCode === Code.ENTER) {
+      openForm();
+    }
+  }
 
   function openForm() {
     setupForm.classList.remove('hidden');
@@ -21,6 +41,8 @@
     wizardCoat.addEventListener('click', dependencies.setup.onWizardCoatClick);
     wizardEyes.addEventListener('click', dependencies.setup.onWizardEyesClick);
     wizardFireBall.addEventListener('click', dependencies.setup.onWizardFireBallClick);
+    uploadIcon.addEventListener('mousedown', dependencies.dialog.onUploadIconMouseDown);
+    setupForm.addEventListener('submit', onFormSubmit);
   }
 
   function closeForm() {
@@ -31,6 +53,8 @@
     wizardCoat.removeEventListener('click', dependencies.setup.onWizardCoatClick);
     wizardEyes.removeEventListener('click', dependencies.setup.onWizardEyesClick);
     wizardFireBall.removeEventListener('click', dependencies.setup.onWizardFireBallClick);
+    uploadIcon.removeEventListener('mousedown', dependencies.dialog.onUploadIconMouseDown);
+    setupForm.removeEventListener('submit', onFormSubmit);
   }
 
   function onFormCloseBtnClick() {
@@ -38,25 +62,20 @@
   }
 
   function onFormCloseBtnEnterPress(evt) {
-    if (evt.keyCode === ENTER_KEYCODE) {
+    if (evt.keyCode === Code.ENTER) {
       closeForm();
     }
   }
 
   function onDocumentEscPress(evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== formUserName) {
+    if (evt.keyCode === Code.ESC && evt.target !== formUserName) {
       closeForm();
     }
   }
 
-  window.form = {
-    onFormOpenBtnClick: function () {
-      openForm();
-    },
-    onFormOpenIconEnterPress: function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        openForm();
-      }
-    }
-  };
+  function onFormSubmit(evt) {
+    evt.preventDefault();
+    var form = setupForm.querySelector('.setup-wizard-form');
+    dependencies.backend.save(new FormData(form), closeForm);
+  }
 })();
