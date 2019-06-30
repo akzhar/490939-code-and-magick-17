@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var Code = {
+  var KeyCode = {
     ESC: 27,
     ENTER: 13
   };
@@ -58,14 +58,14 @@
   }
 
   function onCloseBtnEnterPress(evt) {
-    if (evt.keyCode === Code.ENTER) {
+    if (evt.keyCode === KeyCode.ENTER) {
       resetsetupFormPosition();
       closeBtn.removeEventListener('keydown', onCloseBtnEnterPress);
     }
   }
 
   function onDocEscPress(evt) {
-    if (evt.keyCode === Code.ESC) {
+    if (evt.keyCode === KeyCode.ESC) {
       resetsetupFormPosition();
       document.removeEventListener('keydown', onDocEscPress);
     }

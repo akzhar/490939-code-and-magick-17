@@ -6,7 +6,7 @@
     dialog: window.dialog,
     backend: window.backend
   };
-  var Code = {
+  var KeyCode = {
     ESC: 27,
     ENTER: 13
   };
@@ -23,7 +23,7 @@
   }
 
   function onFormOpenIconEnterPress(evt) {
-    if (evt.keyCode === Code.ENTER) {
+    if (evt.keyCode === KeyCode.ENTER) {
       openForm();
     }
   }
@@ -57,13 +57,13 @@
   }
 
   function onFormCloseBtnEnterPress(evt) {
-    if (evt.keyCode === Code.ENTER) {
+    if (evt.keyCode === KeyCode.ENTER) {
       closeForm();
     }
   }
 
   function onDocumentEscPress(evt) {
-    if (evt.keyCode === Code.ESC && evt.target !== formUserName) {
+    if (evt.keyCode === KeyCode.ESC && evt.target !== formUserName) {
       closeForm();
     }
   }

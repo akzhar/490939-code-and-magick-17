@@ -4,7 +4,7 @@
   var Url = {
     LOAD: 'https://js.dump.academy/code-and-magick/data',
     SAVE: 'https://js.dump.academy/code-and-magick'
-  }
+  };
   var maxResponseTime = 10000;
   var Status = {
     OK: 200
@@ -30,7 +30,7 @@
     xhr.send();
   }
 
-  function save(data, onLoad, onError) {
+  function save(data, onLoad) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
