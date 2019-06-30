@@ -22,10 +22,6 @@
   var HEADER_TEXT = ['Ура вы победили!', 'Список результатов:'];
   var YOUR_NAME = 'Вы';
 
-  window.stats = {
-    renderStatistics: renderStatistics
-  };
-
   function renderStatistics(ctx, names, times) {
     var scoreMax = Math.round(Math.max.apply(null, times));
     drawCloud(ctx, CLOUD_X, CLOUD_Y);
@@ -68,4 +64,8 @@
     ctx.fillText(player.score, barX, barY - 10);
     ctx.fillText(player.name, barX, GIST_LOW_LEVEL + 20);
   }
+
+  window.stats = {
+    renderStatistics: renderStatistics
+  };
 })();

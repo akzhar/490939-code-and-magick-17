@@ -10,10 +10,6 @@
   var closeBtn = setupForm.querySelector('.setup-close');
   var startCoords = {};
 
-  window.dialog = {
-    onUploadIconMouseDown: onUploadIconMouseDown
-  };
-
   function onUploadIconMouseDown(evtMouseDown) {
     var isDragged = false;
     var currentCoords = {
@@ -79,4 +75,8 @@
     startCoords.x = setupForm.offsetTop;
     startCoords.y = setupForm.offsetLeft;
   }
+
+  window.dialog = {
+    onUploadIconMouseDown: onUploadIconMouseDown
+  };
 })();

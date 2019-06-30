@@ -1,18 +1,20 @@
 'use strict';
 
 (function () {
-  window.backend = {
-    load: load,
-    save: save
+  var Url = {
+    LOAD: 'https://js.dump.academy/code-and-magick/data',
+    SAVE: 'https://js.dump.academy/code-and-magick'
+  }
+  var maxResponseTime = 10000;
+  var Status = {
+    OK: 200
   };
-
-  function load(onLoad) {
-    var URL = 'https://js.dump.academy/code-and-magick/data';
+  function load(onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    xhr.timeout = 10000; // 10s
+    xhr.timeout = maxResponseTime;
     xhr.addEventListener('load', function () {
-      if (xhr.status === 200) {
+      if (xhr.status === Status.OK) {
         onLoad(xhr.response);
       } else {
         onError('Cтатус ответа: ' + xhr.status + ' ' + xhr.statusText);
@@ -24,29 +26,22 @@
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + ' мс');
     });
-    xhr.open('GET', URL);
+    xhr.open('GET', Url.LOAD);
     xhr.send();
   }
 
-  function save(data, onLoad) {
-    var URL = 'https://js.dump.academy/code-and-magick';
+  function save(data, onLoad, onError) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
     xhr.addEventListener('load', function () {
       onLoad(xhr.response);
     });
-    xhr.open('POST', URL);
+    xhr.open('POST', Url.SAVE);
     xhr.send(data);
   }
 
-  function onError(msgText) {
-    var header = document.querySelector('header');
-    var div = document.createElement('div');
-    div.style.backgroundColor = 'red';
-    div.style.height = '25px';
-    div.style.margin = '-25px 0 25px 0';
-    div.style.color = 'black';
-    div.textContent = 'ERROR: ' + msgText;
-    header.insertBefore(div, header.firstChild);
-  }
+  window.backend = {
+    load: load,
+    save: save
+  };
 })();

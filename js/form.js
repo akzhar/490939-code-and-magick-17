@@ -18,11 +18,6 @@
   var wizardFireBall = setupForm.querySelector('.setup-fireball-wrap');
   var uploadIcon = setupForm.querySelector('.upload');
 
-  window.form = {
-    onFormOpenBtnClick: onFormOpenBtnClick,
-    onFormOpenIconEnterPress: onFormOpenIconEnterPress
-  };
-
   function onFormOpenBtnClick() {
     openForm();
   }
@@ -78,4 +73,9 @@
     var form = setupForm.querySelector('.setup-wizard-form');
     dependencies.backend.save(new FormData(form), closeForm);
   }
+
+  window.form = {
+    onFormOpenBtnClick: onFormOpenBtnClick,
+    onFormOpenIconEnterPress: onFormOpenIconEnterPress
+  };
 })();

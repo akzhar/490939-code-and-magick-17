@@ -6,10 +6,6 @@
   var similarWizardsList = setupForm.querySelector('.setup-similar-list');
   var templateWizardCard = document.getElementById('similar-wizard-template').content.querySelector('.setup-similar-item');
 
-  window.wizard = {
-    renderWizardCards: renderWizardCards
-  };
-
   function renderWizardCards(data) {
     var similarWizards = data.slice(0, 4);
     var fragment = document.createDocumentFragment();
@@ -31,4 +27,8 @@
     eyes.style.fill = wizard.colorEyes;
     return card;
   }
+
+  window.wizard = {
+    renderWizardCards: renderWizardCards
+  };
 })();

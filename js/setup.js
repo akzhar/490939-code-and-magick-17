@@ -13,12 +13,6 @@
   var inputEyesColor = setupForm.querySelector('input[name="eyes-color"]');
   var inputFireBallColor = setupForm.querySelector('input[name="fireball-color"]');
 
-  window.setup = {
-    onWizardCoatClick: onWizardCoatClick,
-    onWizardEyesClick: onWizardEyesClick,
-    onWizardFireBallClick: onWizardFireBallClick
-  };
-
   function onWizardCoatClick() {
     var newCoatColor = dependencies.utils.getRandomElemInArr(dependencies.data.coatColors);
     wizardCoat.style.fill = newCoatColor;
@@ -36,4 +30,10 @@
     wizardFireBall.style.backgroundColor = newFireBallColor;
     inputFireBallColor.value = newFireBallColor;
   }
+
+  window.setup = {
+    onWizardCoatClick: onWizardCoatClick,
+    onWizardEyesClick: onWizardEyesClick,
+    onWizardFireBallClick: onWizardFireBallClick
+  };
 })();
