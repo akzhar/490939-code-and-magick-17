@@ -22,6 +22,20 @@
   var HEADER_TEXT = ['Ура вы победили!', 'Список результатов:'];
   var YOUR_NAME = 'Вы';
 
+  function renderStatistics(ctx, names, times) {
+    var scoreMax = Math.round(Math.max.apply(null, times));
+    drawCloud(ctx, CLOUD_X, CLOUD_Y);
+    drawCloudHeader(ctx, CLOUD_X + 30, 20);
+    for (var i = 0; i < names.length; i++) {
+      var player = {
+        index: i,
+        name: names[i],
+        score: Math.round(times[i])
+      };
+      drawBar(ctx, player, scoreMax);
+    }
+  }
+
   function drawCloud(ctx, x, y) {
     ctx.fillStyle = COLORS.GRAY;
     ctx.fillRect(x + 10, y + 10, CLOUD_WIDTH, CLOUD_HEIGHT);
@@ -51,17 +65,7 @@
     ctx.fillText(player.name, barX, GIST_LOW_LEVEL + 20);
   }
 
-  window.renderStatistics = function (ctx, names, times) {
-    var scoreMax = Math.round(Math.max.apply(null, times));
-    drawCloud(ctx, CLOUD_X, CLOUD_Y);
-    drawCloudHeader(ctx, CLOUD_X + 30, 20);
-    for (var i = 0; i < names.length; i++) {
-      var player = {
-        index: i,
-        name: names[i],
-        score: Math.round(times[i])
-      };
-      drawBar(ctx, player, scoreMax);
-    }
+  window.stats = {
+    renderStatistics: renderStatistics
   };
 })();

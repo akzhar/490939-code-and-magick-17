@@ -2,8 +2,8 @@
 
 (function () {
   var dependencies = {
-    data: window.data,
-    utils: window.utils
+    utils: window.utils,
+    data: window.data
   };
   var setupForm = document.querySelector('.setup');
   var wizardCoat = setupForm.querySelector('.setup-wizard .wizard-coat');
@@ -13,21 +13,27 @@
   var inputEyesColor = setupForm.querySelector('input[name="eyes-color"]');
   var inputFireBallColor = setupForm.querySelector('input[name="fireball-color"]');
 
+  function onWizardCoatClick() {
+    var newCoatColor = dependencies.utils.getRandomElemInArr(dependencies.data.coatColors);
+    wizardCoat.style.fill = newCoatColor;
+    inputCoatColor.value = newCoatColor;
+  }
+
+  function onWizardEyesClick() {
+    var newEyesColor = dependencies.utils.getRandomElemInArr(dependencies.data.eyesColors);
+    wizardEyes.style.fill = newEyesColor;
+    inputEyesColor.value = newEyesColor;
+  }
+
+  function onWizardFireBallClick() {
+    var newFireBallColor = dependencies.utils.getRandomElemInArr(dependencies.data.fireBallColors);
+    wizardFireBall.style.backgroundColor = newFireBallColor;
+    inputFireBallColor.value = newFireBallColor;
+  }
+
   window.setup = {
-    onWizardCoatClick: function () {
-      var newCoatColor = dependencies.utils.getRandomElemInArr(dependencies.data.coatColors);
-      wizardCoat.style.fill = newCoatColor;
-      inputCoatColor.value = newCoatColor;
-    },
-    onWizardEyesClick: function () {
-      var newEyesColor = dependencies.utils.getRandomElemInArr(dependencies.data.eyesColors);
-      wizardEyes.style.fill = newEyesColor;
-      inputEyesColor.value = newEyesColor;
-    },
-    onWizardFireBallClick: function () {
-      var newFireBallColor = dependencies.utils.getRandomElemInArr(dependencies.data.fireBallColors);
-      wizardFireBall.style.backgroundColor = newFireBallColor;
-      inputFireBallColor.value = newFireBallColor;
-    }
+    onWizardCoatClick: onWizardCoatClick,
+    onWizardEyesClick: onWizardEyesClick,
+    onWizardFireBallClick: onWizardFireBallClick
   };
 })();
