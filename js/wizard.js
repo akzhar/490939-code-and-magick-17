@@ -7,6 +7,7 @@
   var templateWizardCard = document.getElementById('similar-wizard-template').content.querySelector('.setup-similar-item');
 
   function renderWizardCards(data) {
+    similarWizardsList.innerHTML = '';
     var similarWizards = data.slice(0, 4);
     var fragment = document.createDocumentFragment();
     similarWizards.forEach(function (wizard) {
